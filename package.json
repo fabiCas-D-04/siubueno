@@ -1,0 +1,23 @@
+{
+  "name": "univalle-academic",
+  "version": "1.0.0",
+  "description": "Sistema web academico universitario completo - UNIVALLE ACADEMIC",
+  "scripts": {
+    "install:all": "npm install --prefix backend && npm install --prefix frontend",
+    "db:create": "node scripts/create-db.js",
+    "db:migrate": "npm run seed --prefix backend",
+    "seed": "npm run seed --prefix backend",
+    "dev:backend": "npm run dev --prefix backend",
+    "dev:frontend": "npm run dev --prefix frontend",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "build:backend": "npm run build --prefix backend",
+    "build:frontend": "npm run build --prefix frontend",
+    "build": "npm run build:backend && npm run build:frontend"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "pg": "^8.11.3"
+  },
+  "keywords": ["universidad", "academico", "portal", "estudiantes"],
+  "license": "MIT"
+}

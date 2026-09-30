@@ -239,3 +239,34 @@ Tras iniciar sesion seras redirigido al dashboard con toda la informacion del es
 | `npm run dev:backend`| Ejecuta solo el backend                        |
 | `npm run dev:frontend`| Ejecuta solo el frontend                      |
 | `npm run build`      | Compila backend y frontend para produccion     |
+| `npm run build:api`  | Compila el backend y lo deja en `api/lib`       |
+
+---
+
+## 13. Despliegue en Vercel
+
+El repositorio ya incluye la configuracion de despliegue:
+
+- `vercel.json`: build del frontend (Vite) con salida en `frontend/dist` y funcion serverless para la API.
+- `api/[[...path]].js`: funcion Node.js que expone el backend Express en `/api/*`.
+- `scripts/prepare-api.js`: copia el backend compilado a `api/lib` durante el build.
+
+Pasos:
+
+1. Sube los cambios al repositorio.
+2. En <https://vercel.com> entra a **Add New... > Project** e importa el repositorio (Vercel lee el `vercel.json` automaticamente).
+3. En **Settings > Environment Variables** agrega:
+
+   | Variable       | Valor                                  |
+   |----------------|----------------------------------------|
+   | `JWT_SECRET`   | una cadena larga y aleatoria            |
+   | `FRONTEND_URL` | la URL del proyecto en Vercel           |
+   | `DB_MODE`      | `memory` (opcional, es el valor por defecto) |
+
+4. Deploy. La app queda en `https://<tu-proyecto>.vercel.app` con la API en `https://<tu-proyecto>.vercel.app/api`.
+
+Notas:
+
+- En Vercel la base de datos es **en memoria** (`pg-mem`): los datos de demostracion se crean en cada arranque en frio, por lo que no se necesita PostgreSQL y los cambios no se conservan.
+- Si mas adelante se requiere persistencia, configura `DB_MODE=postgres` y `DATABASE_URL` con un Postgres gestionado (Neon, Supabase, Vercel Postgres).
+- Credenciales de prueba: `estudiante / Estudiante123` y `docente / Docente123`.

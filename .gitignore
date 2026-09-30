@@ -5,3 +5,5 @@ dist/
 .DS_Store
 frontend/dist/
 backend/dist/
+api/lib/
+.vercel/
